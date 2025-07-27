@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Missing Persons System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-user-shield"></i> Admin Panel</h1>
+                <nav class="nav">
+                    <a href="index.html" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Detection
+                    </a>
+                    <button id="exportBtn" class="btn btn-info">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <button id="importBtn" class="btn btn-warning">
+                        <i class="fas fa-upload"></i> Import Data
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <div class="admin-grid">
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user-plus"></i> Add Missing Person</h2>
+                    </div>
+                    <form id="addPersonForm" class="person-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personName">
+                                    <i class="fas fa-user"></i> Full Name *
+                                </label>
+                                <input type="text" id="personName" required placeholder="Enter full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="personAge">
+                                    <i class="fas fa-birthday-cake"></i> Age
+                                </label>
+                                <input type="number" id="personAge" min="1" max="120" placeholder="Age">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="personDescription">
+                                <i class="fas fa-align-left"></i> Description
+                            </label>
+                            <textarea id="personDescription" rows="3" placeholder="Physical description, last seen, etc."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactInfo">
+                                <i class="fas fa-phone"></i> Contact Information
+                            </label>
+                            <input type="text" id="contactInfo" placeholder="Phone/Email for reporting">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="photoUpload">
+                                <i class="fas fa-images"></i> Upload Photos *
+                            </label>
+                            <div class="upload-area" id="uploadArea">
+                                <input type="file" id="photoUpload" multiple accept="image/*" required>
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload or drag and drop photos</p>
+                                    <small>Supports JPG, PNG. Multiple files allowed.</small>
+                                </div>
+                            </div>
+                            <div id="photoPreview" class="photo-preview"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-plus"></i> Add to Database
+                        </button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-database"></i> Missing Persons Database</h2>
+                        <div class="card-actions">
+                            <input type="text" id="searchPersons" placeholder="Search persons..." class="search-input">
+                            <span id="personCount" class="count-badge">0 persons</span>
+                        </div>
+                    </div>
+                    <div id="personsList" class="persons-grid">
+                        <!-- Person cards will be displayed here -->
+                    </div>
+                </div>
+
+                <div class="admin-card full-width">
+                    <div class="card-header">
+                        <h2><i class="fas fa-eye"></i> Recent Detections</h2>
+                        <div class="card-actions">
+                            <button id="clearDetections" class="btn btn-danger btn-small">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+                    <div id="recentDetections" class="detections-grid">
+                        <!-- Recent detections will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Person details modal -->
+    <div id="personModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Person Details</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div id="personModalContent"></div>
+        </div>
+    </div>
+
+    <script defer src="js/face-api.min.js"></script>
+    <script defer src="js/database.js"></script>
+    <script defer src="js/admin.js"></script>
+</body>
+</html>
